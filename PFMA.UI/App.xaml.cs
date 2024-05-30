@@ -1,15 +1,21 @@
-﻿using System;
-using System.Windows;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+﻿using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
-using PFMA.Data;
+using PFMA.Data.Repositories.Interfaces;
 
 namespace PFMA.Interface;
 
-public partial class App : Application
+public partial class App
 {
-    public App()
+    protected override void OnStartup(StartupEventArgs e)
     {
+        base.OnStartup(e);
+
+        var userRepository = ServiceProvider.Instance.GetService<IUserRepository>();
+        var register = new Register(userRepository);
+        var window = new Window
+        {
+            Content = register
+        };
+        window.Show();
     }
 }

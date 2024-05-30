@@ -21,6 +21,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\PFMA.Data\PFMA.Data.csproj" />
+      <ProjectReference Include="..\PFMA.Service\PFMA.Service.csproj" />
     </ItemGroup>
 
     <ItemGroup>

@@ -19,6 +19,7 @@ public class UserRepository(DataContext context) : IUserRepository
     public async Task<IEnumerable<User>> GetAllUsersAsync() => await context.Users!.ToListAsync();
 
     public async Task<User?> GetUserByIdAsync(Guid id) => await context.Users!.FindAsync(id);
+    public async Task<User?> GetUserByEmailAsync(string email) => await context.Users!.FirstOrDefaultAsync(u => u.Email == email);
 
     public async Task UpdateUserAsync(User user)
     {
