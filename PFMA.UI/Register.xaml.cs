@@ -1,58 +1,50 @@
-using System;
-using System.Windows;
-using PFMA.Common;
-using PFMA.Data.Models;
-using PFMA.Data.Repositories.Interfaces;
+﻿using PFMA.Data;
 using PFMA.Interface.ViewModels;
+using PFMA.Service;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 
-namespace PFMA.Interface;
-
-public partial class Register
+namespace PFMA.Interface
 {
-    private readonly RegisterViewModel _viewModel;
-    private readonly IUserRepository _userRepository;
-    
-    public Register(IUserRepository userRepository)
+    /// <summary>
+    /// Interaction logic for Register.xaml
+    /// </summary>
+    public partial class Register : Page
     {
-        InitializeComponent();
-        _userRepository = userRepository;
-        _viewModel = new RegisterViewModel(userRepository);
-        DataContext = _viewModel;
-    }
+        private UserViewModel _viewModel;
 
-    private async void btnRegister_Click(object sender, RoutedEventArgs e)
-    {
-        if (tbPassword.Text.Equals(tbConfirmPassword.Text))
+        public Register()
         {
-            try
+            InitializeComponent();
+            _viewModel = new UserViewModel(new UserService(new DataContext()));
+
+            txtPassword.PasswordChanged += (sender, args) =>
             {
-                var user = new User
-                {
-                    Id = Guid.NewGuid(),
-                    Email = tbEmail.Text,
-                    PasswordHash = tbPassword.Text,
-                    FullName = tbFullname.Text,
-                    CreatedAt = DateTime.UtcNow,
-                    Status = UserStatus.Active
-                };
+                _viewModel.Password = txtPassword.Password;
+            };
 
-                await _viewModel.Register(user);
-
-                MessageBox.Show("User registered successfully");
-
-                var login = new Login(_userRepository);
-                login.Show();
-
-                Window.GetWindow(this)?.Close();
-            }
-            catch (Exception ex)
+            txtConfirmPassword.PasswordChanged += (sender, args) =>
             {
-                MessageBox.Show(ex.Message);
-            }
+                _viewModel.ConfirmPassword = txtConfirmPassword.Password;
+            };
         }
-        else
+
+        private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Passwords do not match");
+            var mainWindow = Window.GetWindow(this) as MainWindow;
+            mainWindow!.frmMain.Source = new Uri("Login.xaml", UriKind.Relative);
         }
     }
 }

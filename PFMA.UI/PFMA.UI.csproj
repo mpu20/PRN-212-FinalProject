@@ -9,6 +9,12 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <None Remove="Assets\Icons\close.png" />
+      <None Remove="Assets\Icons\Inter-VariableFont_slnt,wght.ttf" />
+      <None Remove="Assets\Icons\minimize.png" />
+    </ItemGroup>
+
+    <ItemGroup>
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.5" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.5">
         <PrivateAssets>all</PrivateAssets>
@@ -28,6 +34,18 @@
       <None Update="appsettings.json">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Resource Include="Assets\Fonts\Inter-VariableFont_slnt,wght.ttf">
+        <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      </Resource>
+      <Resource Include="Assets\Icons\close.png">
+        <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      </Resource>
+      <Resource Include="Assets\Icons\minimize.png">
+        <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      </Resource>
     </ItemGroup>
 
 </Project>

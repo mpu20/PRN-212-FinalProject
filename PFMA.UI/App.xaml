@@ -1,7 +1,9 @@
 ﻿<Application x:Class="PFMA.Interface.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <FontFamily x:Key="Inter">pack://application:,,,/PFMA.UI;component/Assets/Fonts/#Inter</FontFamily>
     </Application.Resources>
+
 </Application>

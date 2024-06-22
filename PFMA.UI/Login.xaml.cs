@@ -1,43 +1,45 @@
-﻿using System.Windows;
-using System.Windows.Navigation;
-using PFMA.Data.Repositories.Interfaces;
+﻿using PFMA.Data;
 using PFMA.Interface.ViewModels;
+using PFMA.Service;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 
 namespace PFMA.Interface
 {
     /// <summary>
     /// Interaction logic for Login.xaml
     /// </summary>
-    public partial class Login
+    public partial class Login : Page
     {
-        private readonly LoginViewModel _viewModel;
+        private UserViewModel _viewModel;
 
-        public Login(IUserRepository userRepository)
+        public Login()
         {
             InitializeComponent();
-            _viewModel = new LoginViewModel(userRepository);
-            DataContext = _viewModel;
+            _viewModel = new UserViewModel(new UserService(new DataContext()));
+            this.DataContext = _viewModel;
+            txtPassword.PasswordChanged += (sender, args) =>
+            {
+                _viewModel.Password = txtPassword.Password;
+            };
         }
 
-        private async void btnLogin_Click(object sender, RoutedEventArgs e)
+        private void btnRegister_Click(object sender, RoutedEventArgs e)
         {
-            var user = await _viewModel.Login(tbEmail.Text, tbPassword.Text);
-
-            if (user == null)
-            {
-                MessageBox.Show("Email or password is incorrect");
-            }
-            else
-            {
-                var dashboard = new Dashboard();
-                var navigateWindow = new NavigationWindow()
-                {
-                    Content = dashboard
-                };
-                
-                navigateWindow.Show();
-                Close();
-            }
+            var mainWindow = Window.GetWindow(this) as MainWindow;
+            mainWindow!.NavigateToRegister();
         }
     }
 }

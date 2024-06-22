@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using PFMA.Data.Models;
 
 namespace PFMA.Data;
@@ -14,9 +15,12 @@ public class DataContext : DbContext
     public DbSet<FinancialGoal>? FinancialGoals { get; set; }
 
     #endregion
-    
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer("Server=(local);database=PFMA;Trusted_Connection=True;TrustServerCertificate=True;");
+        IConfiguration configuration = new ConfigurationBuilder()
+             .SetBasePath(Directory.GetCurrentDirectory())
+             .AddJsonFile("appsettings.json", true, true).Build();
+        optionsBuilder.UseSqlServer(configuration["ConnectionStrings:DefaultConnection"]);
     }
 }

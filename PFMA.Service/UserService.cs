@@ -1,34 +1,42 @@
-﻿using System.Security.Cryptography;
+﻿using PFMA.Data.Models;
+using PFMA.Data;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
-using PFMA.Common;
-using PFMA.Data.Models;
-using PFMA.Data.Repositories.Interfaces;
+using System.Threading.Tasks;
 
-namespace PFMA.Service;
-
-public class UserService(IUserRepository userRepository)
+namespace PFMA.Service
 {
-    public async Task Register(User user)
+    public class UserService
     {
-        user.PasswordHash = GenerateHashedPassword(user.PasswordHash);
+        private readonly DataContext _context;
 
-        await userRepository.AddUserAsync(user);
-    }
+        public UserService(DataContext context)
+        {
+            _context = context;
+        }
 
-    public async Task<User?> Login(string email, string password)
-    {
-        var user = await userRepository.GetUserByEmailAsync(email);
+        public User? Login(string email, string password)
+        {
+            var user = _context.Users.FirstOrDefault(u => u.Email == email && u.PasswordHash == password);
+            return user;
+        }
 
-        if (user == null || !user.PasswordHash.Equals(GenerateHashedPassword(password))) return null;
+        public void Register(string fullName, string email, string password)
+        {
+            var user = new User
+            {
+                Id = Guid.NewGuid(),
+                FullName = fullName,
+                Email = email,
+                PasswordHash = password,
+                CreatedAt = DateTime.UtcNow,
+                Status = Common.UserStatus.Active
+            };
 
-        return user;
-    }
-
-    private string GenerateHashedPassword(string password)
-    {
-        var saltByte = Encoding.UTF8.GetBytes(AuthenticationParameter.Salt);
-        
-        return Convert.ToBase64String(Rfc2898DeriveBytes.Pbkdf2(password, saltByte, AuthenticationParameter.Iterations,
-            HashAlgorithmName.SHA256, AuthenticationParameter.HashByteSize));
+            _context.Users.Add(user);
+            _context.SaveChanges();
+        }
     }
 }
