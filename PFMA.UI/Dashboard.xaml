@@ -133,7 +133,7 @@
                         <ComboBoxItem Content="July - December"></ComboBoxItem>
                     </ComboBox>
                 </DockPanel>
-                <UserControl></UserControl>
+                <local:Analytics />
             </StackPanel>
             <StackPanel Orientation="Vertical" Grid.Column="1">
                 <DockPanel>
@@ -145,9 +145,23 @@
                         <ComboBoxItem Content="3 week ago"></ComboBoxItem>
                     </ComboBox>
                 </DockPanel>
+                <local:FinancialFlow />
             </StackPanel>
             <StackPanel Orientation="Vertical" Grid.Row="1">
                 <TextBlock DockPanel.Dock="Left" Text="Transactions"></TextBlock>
+                <Border BorderBrush="#e0e0e0" BorderThickness="1" CornerRadius="18" Margin="32,0" Padding="20">
+                    <ItemsControl ItemsSource="{Binding LatestTransactions}" Height="188">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" Margin="5">
+                                    <Image Source="{Binding IconPath}" Width="20" Height="20" Margin="5"/>
+                                    <TextBlock Text="{Binding Date, StringFormat='{}{0:dd/MM/yyyy}'}" Margin="5"/>
+                                    <TextBlock Text="{Binding FormattedAmount}" Margin="5"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Border>
             </StackPanel>
             <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="1">
                 <DockPanel>
@@ -157,6 +171,7 @@
                         <ComboBoxItem Content="Last month"></ComboBoxItem>
                     </ComboBox>
                 </DockPanel>
+                <local:Spending />
             </StackPanel>
         </Grid>
     </Grid>

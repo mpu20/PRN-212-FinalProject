@@ -7,19 +7,16 @@ using System.Windows.Controls;
 namespace PFMA.Interface
 {
     /// <summary>
-    /// Interaction logic for Analytics.xaml
+    /// Interaction logic for FinancialFlow.xaml
     /// </summary>
-    public partial class Analytics : UserControl
+    public partial class FinancialFlow : UserControl
     {
-        private AnalyticsViewModel _viewModel;
-
-        public Analytics()
+        public FinancialFlow()
         {
             InitializeComponent();
             if (!DesignerProperties.GetIsInDesignMode(this))
             {
-                _viewModel = new AnalyticsViewModel(new IncomeService(new DataContext()), new ExpenseService(new DataContext()));
-                DataContext = _viewModel;
+                DataContext = new FinancialFlowViewModel(new IncomeService(new DataContext()), new ExpenseService(new DataContext()));
             }
         }
     }
