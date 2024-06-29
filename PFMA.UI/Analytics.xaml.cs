@@ -19,27 +19,17 @@ using System.Windows.Shapes;
 namespace PFMA.Interface
 {
     /// <summary>
-    /// Interaction logic for Login.xaml
+    /// Interaction logic for Analytics.xaml
     /// </summary>
-    public partial class Login : Page
+    public partial class Analytics : UserControl
     {
-        private UserViewModel _viewModel;
+        private AnalyticsViewModel _viewModel;
 
-        public Login()
+        public Analytics()
         {
             InitializeComponent();
-            _viewModel = new UserViewModel(new UserService(new DataContext()));
+            _viewModel = new AnalyticsViewModel(new IncomeService(new DataContext()), new ExpenseService(new DataContext()));
             DataContext = _viewModel;
-            txtPassword.PasswordChanged += (sender, args) =>
-            {
-                _viewModel.Password = txtPassword.Password;
-            };
-        }
-
-        private void btnRegister_Click(object sender, RoutedEventArgs e)
-        {
-            var mainWindow = Window.GetWindow(this) as MainWindow;
-            mainWindow!.NavigateToRegister();
         }
     }
 }

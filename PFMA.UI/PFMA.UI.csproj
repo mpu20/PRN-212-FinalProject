@@ -10,11 +10,17 @@
 
     <ItemGroup>
       <None Remove="Assets\Icons\close.png" />
+      <None Remove="Assets\Icons\expense.png" />
+      <None Remove="Assets\Icons\financial_goal.png" />
+      <None Remove="Assets\Icons\home.png" />
+      <None Remove="Assets\Icons\income.png" />
       <None Remove="Assets\Icons\Inter-VariableFont_slnt,wght.ttf" />
       <None Remove="Assets\Icons\minimize.png" />
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+      <PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.0-rc2" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.5" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.5">
         <PrivateAssets>all</PrivateAssets>
@@ -43,6 +49,10 @@
       <Resource Include="Assets\Icons\close.png">
         <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       </Resource>
+      <Resource Include="Assets\Icons\expense.png" />
+      <Resource Include="Assets\Icons\financial_goal.png" />
+      <Resource Include="Assets\Icons\home.png" />
+      <Resource Include="Assets\Icons\income.png" />
       <Resource Include="Assets\Icons\minimize.png">
         <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       </Resource>
