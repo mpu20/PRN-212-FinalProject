@@ -1,0 +1,173 @@
+﻿<Page x:Class="PFMA.Interface.Income"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:PFMA.Interface"
+      xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
+      mc:Ignorable="d" 
+      d:DesignHeight="704" d:DesignWidth="1138"
+      Title="Income">
+    <Page.Resources>
+        <Style TargetType="Page">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="FontFamily" Value="{StaticResource Inter}" />
+        </Style>
+        <Style x:Key="ComboboxButtonStyle" TargetType="{x:Type ToggleButton}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ToggleButton}">
+                        <Border Background="White" x:Name="border" CornerRadius="0,8,8,0" BorderThickness="0,1,1,1" BorderBrush="#e0e0e0">
+                            <ContentPresenter />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ComboboxTextBoxStyle" TargetType="TextBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Grid>
+                            <Border CornerRadius="8,0,0,8" BorderThickness="1,1,0,1" Background="{TemplateBinding Background}" BorderBrush="#e0e0e0">
+                                <ScrollViewer x:Name="PART_ContentHost"/>
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="Background" Value="Transparent"></Setter>
+            <Setter Property="Foreground" Value="#444444"></Setter>
+            <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+            <Setter Property="FontSize" Value="16"></Setter>
+            <Setter Property="Height" Value="40"></Setter>
+            <Setter Property="BorderBrush" Value="#e0e0e0"></Setter>
+            <Setter Property="Cursor" Value="Hand"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition MaxWidth="28"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox Name="PART_EditableTextBox"  
+                        Style="{StaticResource ComboboxTextBoxStyle}"  
+                        Padding="16,0,0,0"  
+                        Height="{TemplateBinding Height}"/>
+                            <ToggleButton Grid.Column="1" 
+                        Height="{TemplateBinding Height}"  
+                        Style="{StaticResource ComboboxButtonStyle}"  
+                        Focusable="False"  
+                        IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"  
+                        ClickMode="Press">
+                                <Path Grid.Column="1"  
+                            HorizontalAlignment="Center"  
+                            VerticalAlignment="Center" 
+                            Data="M 0 0 L 4 4 L 8 0"  
+                            Stroke="#444444" 
+                            StrokeThickness="1"/>
+                            </ToggleButton>
+                            <ContentPresenter Name="ContentSite"  
+                        Content="{TemplateBinding SelectionBoxItem}"  
+                        ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"  
+                        ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"  
+                        VerticalAlignment="Center"  
+                        HorizontalAlignment="Left"  
+                        Margin="16,0,0,0"/>
+                            <Popup Name="Popup"  
+                        Placement="Bottom"  
+                        IsOpen="{TemplateBinding IsDropDownOpen}"  
+                        AllowsTransparency="True"   
+                        Focusable="False"  
+                        PopupAnimation="Slide">
+                                <Grid Name="DropDown"  
+                            SnapsToDevicePixels="True"          
+                            MinWidth="{TemplateBinding ActualWidth}"  
+                            MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                    <Border   
+                                x:Name="DropDownBorder"  
+                                BorderThickness="1"  
+                                CornerRadius="5"  
+                                BorderBrush="Black"/>
+                                    <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
+                                    </ScrollViewer>
+                                </Grid>
+                            </Popup>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="FunctionButton" TargetType="Button">
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Width" Value="80"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0,0,8,0"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <Setter Property="CornerRadius" Value="8"/>
+                </Style>
+            </Style.Resources>
+        </Style>
+        <Style TargetType="Image">
+            <Setter Property="Width" Value="16"></Setter>
+            <Setter Property="Height" Value="16"></Setter>
+            <Setter Property="Margin" Value="0,0,8,0"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+        </Style>
+    </Page.Resources>
+
+    <Grid Margin="28,0,28,14">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="5*"/>
+        </Grid.RowDefinitions>
+
+        <ComboBox Width="200" HorizontalAlignment="Right">
+            <ComboBoxItem Content="This month" IsSelected="True"></ComboBoxItem>
+            <ComboBoxItem Content="Last month"></ComboBoxItem>
+        </ComboBox>
+
+        <lvc:CartesianChart Grid.Column="1" Series="{Binding Series}" XAxes="{Binding XAxes}"/>
+
+        <DockPanel Grid.Row="2">
+            <ComboBox DockPanel.Dock="Left" Width="200" HorizontalAlignment="Right">
+                <ComboBoxItem Content="Lastest" IsSelected="True"></ComboBoxItem>
+                <ComboBoxItem Content="Oldest"></ComboBoxItem>
+            </ComboBox>
+            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Name="btnAdd" Background="Black" Foreground="White" Style="{StaticResource FunctionButton}">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Image Source="pack://application:,,,/Assets/Icons/add_white.png"/>
+                        <TextBlock Text="Add"/>
+                    </StackPanel>
+                </Button>
+                <Button Name="btnEdit" Background="#e0e0e0" Foreground="Black" Style="{StaticResource FunctionButton}">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Image Source="pack://application:,,,/Assets/Icons/edit.png"/>
+                    <TextBlock Text="Edit"/>
+                </StackPanel>
+            </Button>
+            </StackPanel>
+        </DockPanel>
+
+        <ListView ItemsSource="{Binding Incomes}" Grid.Row="3">
+            <!-- Define item template for displaying incomes -->
+        </ListView>
+    </Grid>
+</Page>

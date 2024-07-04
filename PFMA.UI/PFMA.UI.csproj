@@ -9,7 +9,9 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <None Remove="Assets\Icons\add_white.png" />
       <None Remove="Assets\Icons\close.png" />
+      <None Remove="Assets\Icons\edit.png" />
       <None Remove="Assets\Icons\expense.png" />
       <None Remove="Assets\Icons\financial_goal.png" />
       <None Remove="Assets\Icons\home.png" />
@@ -46,9 +48,11 @@
       <Resource Include="Assets\Fonts\Inter-VariableFont_slnt,wght.ttf">
         <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       </Resource>
+      <Resource Include="Assets\Icons\add_white.png" />
       <Resource Include="Assets\Icons\close.png">
         <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       </Resource>
+      <Resource Include="Assets\Icons\edit.png" />
       <Resource Include="Assets\Icons\expense.png" />
       <Resource Include="Assets\Icons\financial_goal.png" />
       <Resource Include="Assets\Icons\home.png" />
